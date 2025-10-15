@@ -1,0 +1,36 @@
+{
+  "name": "@liangshanli/mcp-server-redis",
+  "version": "1.0.0",
+  "description": "MCP Redis server with data operations, permission control and operation logs",
+  "main": "bin/cli.js",
+  "bin": {
+    "mcp-server-redis": "bin/cli.js"
+  },
+  "scripts": {
+    "start": "node bin/cli.js",
+    "dev": "node --inspect bin/cli.js",
+    "test": "node test-simple.js",
+    "start-managed": "node start-server.js",
+    "daemon": "node start-server.js",
+    "server": "node src/server-final.js"
+  },
+  "keywords": [
+    "mcp",
+    "redis",
+    "server",
+    "database",
+    "nosql"
+  ],
+  "author": "liliangshan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liliangshan/mcp-server-redis"
+  },
+  "dependencies": {
+    "redis": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}

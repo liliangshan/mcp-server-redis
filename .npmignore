@@ -1,0 +1,30 @@
+# Development files
+test-simple.js
+logs/
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Node modules (will be installed by users)
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+tmp/
+temp/
