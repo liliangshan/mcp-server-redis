@@ -37,17 +37,17 @@ class DataOperations {
           value = await client.get(key);
           break;
         case 'list':
-          const listLength = await client.llen(key);
-          value = await client.lrange(key, 0, -1);
+          const listLength = await client.lLen(key);
+          value = await client.lRange(key, 0, -1);
           break;
         case 'set':
-          value = await client.smembers(key);
+          value = await client.sMembers(key);
           break;
         case 'zset':
-          value = await client.zrange(key, 0, -1, 'WITHSCORES');
+          value = await client.zRange(key, 0, -1, 'WITHSCORES');
           break;
         case 'hash':
-          value = await client.hgetall(key);
+          value = await client.hGetAll(key);
           break;
         default:
           value = await client.get(key);
@@ -98,22 +98,22 @@ class DataOperations {
           if (Array.isArray(value)) {
             await client.del(key); // Clear existing list
             if (value.length > 0) {
-              result = await client.lpush(key, ...value);
+              result = await client.lPush(key, ...value);
             } else {
-              result = await client.lpush(key, '');
+              result = await client.lPush(key, '');
             }
           } else {
-            result = await client.lpush(key, value);
+            result = await client.lPush(key, value);
           }
           break;
         case 'set':
           if (Array.isArray(value)) {
             await client.del(key); // Clear existing set
             if (value.length > 0) {
-              result = await client.sadd(key, ...value);
+              result = await client.sAdd(key, ...value);
             }
           } else {
-            result = await client.sadd(key, value);
+            result = await client.sAdd(key, value);
           }
           break;
         case 'hash':
@@ -121,7 +121,7 @@ class DataOperations {
             await client.del(key); // Clear existing hash
             const entries = Object.entries(value);
             if (entries.length > 0) {
-              result = await client.hset(key, entries.flat());
+              result = await client.hSet(key, entries.flat());
             }
           } else {
             throw new Error('Hash value must be an object');
@@ -199,10 +199,10 @@ class DataOperations {
           await client.del(key);
           if (Array.isArray(value)) {
             if (value.length > 0) {
-              result = await client.sadd(key, ...value);
+              result = await client.sAdd(key, ...value);
             }
           } else {
-            result = await client.sadd(key, value);
+            result = await client.sAdd(key, value);
           }
           break;
         case 'hash':
@@ -211,7 +211,7 @@ class DataOperations {
           if (typeof value === 'object' && value !== null) {
             const entries = Object.entries(value);
             if (entries.length > 0) {
-              result = await client.hset(key, entries.flat());
+              result = await client.hSet(key, entries.flat());
             }
           } else {
             throw new Error('Hash value must be an object');

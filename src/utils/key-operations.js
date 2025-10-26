@@ -38,25 +38,25 @@ class KeyOperations {
           break;
         case 'list':
           if (Array.isArray(value)) {
-            result = await client.lpush(key, ...value);
+            result = await client.lPush(key, ...value);
           } else {
-            result = await client.lpush(key, value);
+            result = await client.lPush(key, value);
           }
           break;
         case 'set':
           if (Array.isArray(value)) {
-            result = await client.sadd(key, ...value);
+            result = await client.sAdd(key, ...value);
           } else {
-            result = await client.sadd(key, value);
+            result = await client.sAdd(key, value);
           }
           break;
         case 'hash':
           if (typeof value === 'object' && value !== null) {
             const entries = Object.entries(value);
             if (entries.length > 0) {
-              result = await client.hset(key, entries.flat());
+              result = await client.hSet(key, entries.flat());
             } else {
-              result = await client.hset(key, 'placeholder', '');
+              result = await client.hSet(key, 'placeholder', '');
             }
           } else {
             throw new Error('Hash value must be an object');
@@ -175,19 +175,19 @@ class KeyOperations {
       // Get size based on type
       switch (type) {
         case 'string':
-          size = await client.strlen(key);
+          size = await client.strLen(key);
           break;
         case 'list':
-          size = await client.llen(key);
+          size = await client.lLen(key);
           break;
         case 'set':
-          size = await client.scard(key);
+          size = await client.sCard(key);
           break;
         case 'zset':
-          size = await client.zcard(key);
+          size = await client.zCard(key);
           break;
         case 'hash':
-          size = await client.hlen(key);
+          size = await client.hLen(key);
           break;
       }
 
